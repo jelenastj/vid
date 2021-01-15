@@ -4,7 +4,7 @@ import Like from './common/like';
 import Pagination from './common/pagination';
 import { paginate } from '../utils/paginate';
 import ListGroup from './common/listGroup';
-import { getGenres } from '../services/fakeGenreService'
+import { getGenres } from '../services/fakeGenreService';
 
 class Movies extends Component {
 	state = {
@@ -13,9 +13,9 @@ class Movies extends Component {
 		pageSize: 4,
 		currentPage: 1,
 	};
-componentDidMount(){
-this.setState({ movies: getMovies(), genres: getGenres()});
-}
+	componentDidMount() {
+		this.setState({ movies: getMovies(), genres: getGenres() });
+	}
 
 	handleDelete = (movie) => {
 		const movies = this.state.movies.filter((m) => m._id !== movie._id);
@@ -31,9 +31,9 @@ this.setState({ movies: getMovies(), genres: getGenres()});
 	handlePageChange = (page) => {
 		this.setState({ currentPage: page });
 	};
-	handleGenreSelect =() => {
-		console.log("genre");
-	}
+	handleGenreSelect = () => {
+		console.log('genre');
+	};
 	render() {
 		const { length: count } = this.state.movies;
 		const { currentPage, pageSize, movies: allMovies } = this.state;
@@ -43,8 +43,12 @@ this.setState({ movies: getMovies(), genres: getGenres()});
 		const movies = paginate(allMovies, currentPage, pageSize);
 		return (
 			<div className='row'>
-				<div className='col-2'>
-					<ListGroup items={this.state.genres} onItemSelect={handleGenreSelect}/>
+				<div className='col-3'>
+					<ListGroup 
+					items={this.state.genres}
+					textProperty="name"
+					valueProperty="_id"
+					onItemSelect={this.handleGenreSelect} />
 				</div>
 				<div className='col'>
 					<p>Shoving {count} movies in the database.</p>
