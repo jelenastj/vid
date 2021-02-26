@@ -7,12 +7,13 @@ class LoginForm extends Component {
 	handleSubmit = (e) => {
 		e.preventDefault();
 	};
-  handleChange = e => {
+  handleChange = ({target: input}) => {
    const account ={...this.state.account};
-   account.username = e.target.value;
+   account[input.name] = input.value;
    this.setState({account})
   }
 	render() {
+    const {account} = this.state
 		return (
 			<div>
 				<h1>login</h1>
@@ -20,9 +21,10 @@ class LoginForm extends Component {
 					<div className='form-group'>
 						<label htmlFor='username'>Username</label>
 						<input 
-            value={this.state.account.username} 
+            value={account.username} 
             onChange={this.handleChange}
               id='username' 
+              name="username"
               type='text' 
               className='form-control' />
 					</div>
@@ -31,6 +33,9 @@ class LoginForm extends Component {
 						<input 
               id='password' 
               type='text' 
+              value={account.password} 
+              onChange={this.handleChange}
+              name="password"
               className='form-control' />
 					</div>
 				</form>
